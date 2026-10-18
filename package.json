@@ -6,8 +6,7 @@
   "description": "Forms one Besu QBFT validator or RPC node for the successor alpha chain; the predecessor chain remains historical. The live chain ID is the ALPHA_CHAIN_ID constant in src/alpha-chain.mjs.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/red-cup-engineering/computer-systems-engineering-services-section.git",
-    "directory": "services/computer-blockchain-system-services-section/services/ethereum-engineering-services-section/services/ethereum-node-services-section/services/alpha-chain-node-service"
+    "url": "git+https://github.com/red-cup-engineering/alpha-chain-node-service.git"
   },
   "exports": {
     ".": "./src/alpha-chain.mjs"
