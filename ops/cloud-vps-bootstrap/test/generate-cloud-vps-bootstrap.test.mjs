@@ -5,8 +5,23 @@ import { join } from "node:path";
 import test from "node:test";
 
 import { bootstrapScript, generate, nodeEnvironment, systemdUnit } from "../generate-cloud-vps-bootstrap.mjs";
+import { BESU_VERSION, BESU_SHA256, nodeArguments, qbftConfiguration } from "../../../src/alpha-chain.mjs";
 
 const GENESIS_SHA256 = "a".repeat(64);
+
+test("cloud bootstrap receives the same network and Besu edition as native formation", () => {
+  const chainId = qbftConfiguration({ treasuryAddress: "0x1111111111111111111111111111111111111111" }).genesis.config.chainId;
+  const environment = nodeEnvironment({ p2pHost: "100.64.0.12" });
+  const unit = systemdUnit();
+  const native = nodeArguments({ dataPath: "/state/node", genesisPath: "/state/genesis.json", p2pHost: "100.64.0.12" });
+  const script = bootstrapScript({ genesisUrl: "https://example.invalid/genesis.json", genesisSha256: GENESIS_SHA256 });
+  assert.equal(Number(/^CHAIN_ID=(\d+)$/mu.exec(environment)?.[1]), chainId);
+  assert.ok(native.includes(`--network-id=${chainId}`));
+  assert.ok(unit.includes(`--network-id=${chainId} `));
+  assert.ok(unit.includes(`eip155:${chainId} `));
+  assert.ok(script.includes(`BESU_VERSION=${BESU_VERSION}\n`));
+  assert.ok(script.includes(`BESU_SHA256=${BESU_SHA256}\n`));
+});
 
 test("generator emits a loopback-only, hardened node bundle without keys", async () => {
   const parent = await mkdtemp(join(tmpdir(), "alpha-chain-vps-"));
@@ -44,5 +59,4 @@ test("rejects public P2P addresses, malformed bootnodes, and unsafe genesis inpu
   assert.throws(() => nodeEnvironment({ p2pHost: "100.64.0.1", bootnodes: ["https://peer"] }), /enode/u);
   assert.throws(() => bootstrapScript({ genesisUrl: "http://example.invalid/genesis", genesisSha256: GENESIS_SHA256 }), /HTTPS/u);
   assert.throws(() => bootstrapScript({ genesisUrl: "https://example.invalid/genesis", genesisSha256: "A".repeat(64) }), /lowercase/u);
-  assert.match(systemdUnit(), /eip155:5615610/u);
 });

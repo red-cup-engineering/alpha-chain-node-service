@@ -3,10 +3,9 @@
 import { chmod, mkdir, writeFile } from "node:fs/promises";
 import { isIP } from "node:net";
 import { resolve } from "node:path";
+import { ALPHA_CHAIN_ID, BESU_VERSION, BESU_SHA256 } from "../../src/alpha-chain.mjs";
 
-const CHAIN_ID = "5615610";
-const BESU_VERSION = "26.7.0";
-const BESU_SHA256 = "21129fbd34468182ef134fca78989450f2bd8205e18ed87e75b1a420141ba209";
+const CHAIN_ID = String(ALPHA_CHAIN_ID);
 const BESU_URL = `https://github.com/hyperledger/besu/releases/download/${BESU_VERSION}/besu-${BESU_VERSION}.tar.gz`;
 const SHA256 = /^[a-f0-9]{64}$/u;
 const ENODE = /^enode:\/\/[0-9a-f]{128}@[A-Za-z0-9:.[\]-]+:[1-9][0-9]{0,4}(?:\?discport=[1-9][0-9]{0,4})?$/u;

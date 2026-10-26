@@ -8,3 +8,14 @@
 <!-- 561-group-standards:badges:end -->
 
 Forms one Besu QBFT validator or RPC node for the successor alpha chain; the predecessor chain remains historical. The live chain ID is the ALPHA_CHAIN_ID constant in src/alpha-chain.mjs.
+
+The cloud VPS bootstrap producer consumes that same network ID and the declared
+Besu version and archive digest from `src/alpha-chain.mjs`. Its `node.env` and
+systemd unit therefore select the same network as the native genesis producer
+and node arguments. `npm run verify` receives both the native formation and
+the cloud bootstrap suites, including their cross-component identity agreement.
+
+The units under `data/records/systemd/` retain historical installations. Select a
+new bundle through the current producer and receive the actual genesis and peer
+network before activating it; a generated bundle is not evidence of a running
+chain, deployed exchange contract or settled internal transaction.
