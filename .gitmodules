@@ -1,4 +1,4 @@
-[submodule "ops/vps-suitability-assay"]
-	path = ops/vps-suitability-assay
+[submodule "ops/alpha-chain-vps-suitability-assay"]
+	path = ops/alpha-chain-vps-suitability-assay
 	url = https://github.com/red-cup-engineering/alpha-chain-vps-suitability-assay.git
 	branch = main
