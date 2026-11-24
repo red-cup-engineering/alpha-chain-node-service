@@ -1,0 +1,44 @@
+{
+  "name": "@red-cup-engineering/alpha-chain-node-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Forms one Besu QBFT validator or RPC node for the successor alpha chain; the predecessor chain remains historical. The live chain ID is the ALPHA_CHAIN_ID constant in src/alpha-chain.mjs.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/red-cup-engineering/alpha-chain-node-service.git"
+  },
+  "exports": {
+    ".": "./src/alpha-chain.mjs",
+    "./data-market": "./src/data-market.mjs"
+  },
+  "bin": {
+    "generate-alpha-chain-genesis": "./scripts/generate-network.mjs",
+    "run-alpha-chain-node": "./scripts/run-node.mjs",
+    "serve-alpha-chain-data-market": "./src/data-market.mjs",
+    "purchase-alpha-chain-data": "./scripts/purchase-data.mjs"
+  },
+  "scripts": {
+    "check": "node --check src/alpha-chain.mjs && node --check scripts/generate-network.mjs && node --check scripts/run-node.mjs && node --check ops/cloud-vps-bootstrap/generate-cloud-vps-bootstrap.mjs",
+    "verify": "npm run check"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "license": "MIT",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/561-group/.github/blob/main/TIPS.md"
+  },
+  "dependencies": {
+    "ethers": "6.17.0",
+    "viem": "2.55.8",
+    "@x402/core": "2.19.0",
+    "@x402/evm": "2.19.0",
+    "@red-cup-engineering/computer-web-platform": "^0.7.4",
+    "@red-cup-engineering/http-engineering-services-section": "^0.6.6",
+    "@red-cup-engineering/x402-engineering-services-section": "^0.14.1",
+    "@red-cup-engineering/datom-engineering-services-section": "^0.1.4",
+    "@red-cup-engineering/ethereum-engineering-services-section": "^0.15.8"
+  }
+}
